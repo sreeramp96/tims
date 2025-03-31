@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TimesheetController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,6 +23,7 @@ Route::middleware('auth')->group(function () {
         // Handle form submission logic here
         return back()->with('success', 'Time entry saved successfully!');
     })->name('save-timesheet');
+    Route::get('/timesheet', [TimesheetController::class, 'index']);
 });
 
 

@@ -1,9 +1,5 @@
 <div x-show="tab === 'home'">
-    <h3 class="text-lg font-semibold">Home</h3>
-    <p>This is your home dashboard.</p>
-
-
-    <div x-data="{ tab: null }">
+    <div x-data="{ open: null }">
         @php
             $projects = [
                 ['id' => 1, 'name' => 'Project Alpha', 'code' => 'ALPHA-001'],
@@ -27,11 +23,11 @@
                     </svg>
                 </button>
 
-                <!-- Accordion Content -->
-                <div x-show="open === {{ $project['id'] }}" x-collapse class="px-4 py-2 bg-gray-50">
+                <div x-show="open === {{ $project['id'] }}" x-transition class="px-4 py-2 bg-gray-50">
                     <p><strong>Project Code:</strong> {{ $project['code'] }}</p>
                 </div>
             </div>
         @endforeach
     </div>
+
 </div>
