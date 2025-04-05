@@ -41,8 +41,8 @@ A web-based Timesheet Management System built with **Laravel**, **Alpine.js**, a
 
 ## 📸 Screenshots
 
-[screenshot-1.png](https://raw.githubusercontent.com/sreeramp96/tims/refs/heads/master/screenshots/screenshot-1.png)
-[screenshot-2.png](https://raw.githubusercontent.com/sreeramp96/tims/refs/heads/master/screenshots/screenshot-2.png)
-[screenshot-3.png](https://raw.githubusercontent.com/sreeramp96/tims/refs/heads/master/screenshots/screenshot-3.png)
-[screenshot-4.png](https://raw.githubusercontent.com/sreeramp96/tims/refs/heads/master/screenshots/screenshot-4.png)
-[screenshot-5.png](https://raw.githubusercontent.com/sreeramp96/tims/refs/heads/master/screenshots/screenshot-5.png)
+![ScreenShot](https://raw.githubusercontent.com/sreeramp96/tims/refs/heads/master/screenshots/screenshot-1.png)
+![ScreenShot](https://raw.githubusercontent.com/sreeramp96/tims/refs/heads/master/screenshots/screenshot-2.png)
+![ScreenShot](https://raw.githubusercontent.com/sreeramp96/tims/refs/heads/master/screenshots/screenshot-3.png)
+![ScreenShot](https://raw.githubusercontent.com/sreeramp96/tims/refs/heads/master/screenshots/screenshot-4.png)
+![ScreenShot](https://raw.githubusercontent.com/sreeramp96/tims/refs/heads/master/screenshots/screenshot-5.png)
