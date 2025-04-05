@@ -41,12 +41,10 @@ A web-based Timesheet Management System built with **Laravel**, **Alpine.js**, a
 
 ## 📸 Screenshots
 
-> _You can add screenshots here later by uploading image files to your repo and using the syntax below:_
-
 ```markdown
-![Screenshot](screenshots/Screenshot 2025-04-05 215941.png)
-![Screenshot](screenshots/Screenshot 2025-04-05 220020.png)
-![Screenshot](screenshots/Screenshot 2025-04-05 220033.png)
-![Screenshot](screenshots/Screenshot 2025-04-05 220041.png)
-![Screenshot](screenshots/Screenshot 2025-04-05 220100.png)
+![Screenshot](public/screenshots/Screenshot 2025-04-05 215941.png)
+![Screenshot](public/screenshots/Screenshot 2025-04-05 220020.png)
+![Screenshot](public/screenshots/Screenshot 2025-04-05 220033.png)
+![Screenshot](public/screenshots/Screenshot 2025-04-05 220041.png)
+![Screenshot](public/screenshots/Screenshot 2025-04-05 220100.png)
 ```
