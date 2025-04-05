@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'TIMS') }}</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -15,7 +15,7 @@
     <div class="h-screen flex flex-col items-center pt-6 sm:pt-6 bg-gray-300">
         <div>
             <a href="/">
-                <img src="{{ asset('images/MGS_Logo.svg') }}" alt="Logo"
+                <img src="{{ asset('images/icons8-logo-500.png') }}" alt="Logo"
                     class="w-20 h-20 fill-current text-gray-500">
                 {{-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> --}}
             </a>

@@ -1,5 +1,5 @@
 <div class="w-full overflow-hidden bg-gray-500 py-4 text-center">
-    <h1 class="text-3xl font-bold text-white m-0 p-0 leading-tight">MGS Issue Management System</h1>
+    <h1 class="text-3xl font-bold text-white m-0 p-0 leading-tight">Time Issue Management System</h1>
 </div>
 
 <x-guest-layout>
@@ -8,16 +8,14 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
             <div>
-                <x-input-label for="email" :value="'Email'" />
-                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                    required autofocus autocomplete="username" />
+                <x-text-input label="Email" id="email" class="block mt-1 w-full" type="email" name="email"
+                    :value="old('email')" required autofocus autocomplete="username" />
                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
             </div>
 
             <div class="mt-4">
-                <x-input-label for="password" :value="'Password'" />
-                <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required
-                    autocomplete="current-password" />
+                <x-text-input label="Password" id="password" class="block mt-1 w-full" type="password" name="password"
+                    required autocomplete="current-password" />
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
 

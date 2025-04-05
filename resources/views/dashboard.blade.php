@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
-            {{ 'Welcome to MGS Time and Issue Management System' }}
+            {{ 'Welcome to Time and Issue Management System' }}
         </h2>
     </x-slot>
 
