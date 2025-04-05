@@ -42,9 +42,9 @@ A web-based Timesheet Management System built with **Laravel**, **Alpine.js**, a
 ## 📸 Screenshots
 
 ```markdown
-![Screenshot](public/screenshots/Screenshot 2025-04-05 215941.png)
-![Screenshot](public/screenshots/Screenshot 2025-04-05 220020.png)
-![Screenshot](public/screenshots/Screenshot 2025-04-05 220033.png)
-![Screenshot](public/screenshots/Screenshot 2025-04-05 220041.png)
-![Screenshot](public/screenshots/Screenshot 2025-04-05 220100.png)
+![Screenshot](screenshots/screenshot-1.png)
+![Screenshot](screenshots/screenshot-2.png)
+![Screenshot](screenshots/screenshot-3.png)
+![Screenshot](screenshots/screenshot-4.png)
+![Screenshot](screenshots/screenshot-5.png)
 ```
