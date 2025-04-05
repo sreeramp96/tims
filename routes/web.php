@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TimesheetController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Project;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -14,16 +15,27 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
     Route::get('/my-timesheet', function () {
         return view('timesheet');
     })->name('timesheet');
-    Route::post('/save-timesheet', function () {
-        // Handle form submission logic here
-        return back()->with('success', 'Time entry saved successfully!');
-    })->name('save-timesheet');
+
+    // Route::post('/save-timesheet', function () {
+    //     return back()->with('success', 'Time entry saved successfully!');
+    // })->name('save-timesheet');
+
     Route::get('/timesheet', [TimesheetController::class, 'index']);
+
+    Route::post('/save-timesheet', [TimesheetController::class, 'store'])->name('save-timesheet');
+
+    Route::get('/projects', function () {
+        return response()->json(Project::all());
+    });
+    Route::get('/timesheet-entries', [TimeSheetController::class, 'getEntries']);
 });
 
 
