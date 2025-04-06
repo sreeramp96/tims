@@ -56,6 +56,10 @@ class TimesheetController extends Controller
             'date' => $request->date,
         ]);
 
+        if (request()->expectsJson()) {
+            return response()->json(['success' => true]);
+        }
+
         return back()->with('success', 'Time entry saved successfully.')->with('tab', 'timesheet');
     }
 
@@ -86,5 +90,37 @@ class TimesheetController extends Controller
             'entries' => $grouped,
             'totalHours' => $entries->sum('duration'),
         ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'project_id' => 'required',
+            'issue' => 'required',
+            'date' => 'required|date',
+            'duration' => 'required|numeric',
+            'comment' => 'nullable',
+        ]);
+
+        $entry = TimesheetEntry::findOrFail($id);
+        $entry->update($request->all());
+
+        if (request()->expectsJson()) {
+            return response()->json(['success' => true]);
+        }
+
+        return back()->with('success', 'Time entry updated successfully.')->with('tab', 'timesheet');
+    }
+
+
+    public function destroy($id)
+    {
+        $entry = TimesheetEntry::findOrFail($id);
+        $entry->delete();
+
+        if (request()->expectsJson()) {
+            return response()->json(['success' => true]);
+        }
+        return back()->with('success', 'Time entry deleted successfully.')->with('tab', 'timesheet');
     }
 }

@@ -9,22 +9,27 @@
                 <div class="bg-red-100 text-red-800 p-3 rounded mb-4">{{ session('error') }}</div>
             @endif
         </div>
-        <form method="POST" action="{{ route('save-timesheet') }}">
+        <form :action="editingEntry ? `/timesheet-entries/${editingEntry.id}` : '{{ route('save-timesheet') }}'"
+            method="POST" x-ref="entryForm">
             @csrf
-
+            <template x-if="editingEntry">
+                <input type="hidden" name="_method" value="PUT">
+            </template>
             <div class="grid grid-cols-2 gap-4 mt-4">
                 <div>
                     <label class="block text-gray-700">Project</label>
-                    <select name="project_id" class="block w-full mt-1 p-2 border rounded" required>
+                    {{-- <select name="project_id" class="block w-full mt-1 p-2 border rounded" required> --}}
+                    <select name="project_id" x-model="selectedProjectId" class="block w-full mt-1 p-2 border rounded"
+                        required>
                         <option value="">Select Project</option>
                         <template x-for="project in projects" :key="project.id">
-                            <option :value="project.id" x-text="project.project"></option>
+                            {{-- <option :value="project.id" x-text="project.project"></option> --}}
+                            <option :value="project.id" x-text="project.project"
+                                :selected="project.id == selectedProjectId"></option>
                         </template>
                     </select>
                     <p x-show="errors.project_id" x-text="errors.project_id" class="text-red-500 text-sm mt-1"></p>
                 </div>
-
-
                 <x-text-input class="block w-full mt-1 p-2 border rounded" type="text" name="filter"
                     placeholder="Search issue..." label="Filter Issues" />
             </div>
@@ -91,25 +96,45 @@
                     </thead>
                     <tbody>
                         <template x-for="day in weekDays" :key="day">
-                            <template x-if="entries[day]">
-                                <template x-for="entry in entries[day]" :key="entry.id">
+                            <template x-if="entries[day] && entries[day].length">
+                                <template x-for="(entry, index) in entries[day]" :key="entry.id">
                                     <tr class="hover:bg-gray-50">
-                                        <td class="border px-4 py-2" x-text="day"></td>
+                                        <template x-if="index === 0">
+                                            <td class="border px-4 py-2 align-top whitespace-nowrap w-32 text-sm font-medium"
+                                                :rowspan="entries[day].length" x-text="day">
+                                            </td>
+                                        </template>
                                         <td class="border px-4 py-2" x-text="entry.project"></td>
                                         <td class="border px-4 py-2" x-text="entry.issue"></td>
                                         <td class="border px-4 py-2" x-text="entry.comment"></td>
                                         <td class="border px-4 py-2 text-center" x-text="entry.hours"></td>
                                         <td class="border px-4 py-2 text-center">
                                             <button @click="editEntry(entry)"
-                                                class="text-blue-600 hover:underline mr-2">Edit</button>
+                                                class="text-blue-600 hover:text-blue-800 mr-2" title="Edit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 inline"
+                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                    stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M15.232 5.232l3.536 3.536M9 11l6.586-6.586a2 2 0 012.828 2.828L11.828 14H9v-2z" />
+                                                </svg>
+                                            </button>
+
                                             <button @click="deleteEntry(entry.id)"
-                                                class="text-red-600 hover:underline">Delete</button>
+                                                class="text-red-600 hover:text-red-800" title="Delete">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 inline"
+                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                    stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                            </button>
                                         </td>
                                     </tr>
                                 </template>
                             </template>
                         </template>
                     </tbody>
+
                     <tfoot>
                         <tr class="bg-gray-100 font-semibold">
                             <td colspan="4" class="border px-4 py-2 text-right">Weekly Total</td>
@@ -132,6 +157,8 @@
             totalHours: 0,
             projects: [],
             errors: {},
+            editingEntry: null,
+            selectedProjectId: '',
 
             init() {
                 this.resetToCurrentWeek();
@@ -152,8 +179,8 @@
 
             getStartOfWeek(date) {
                 const d = new Date(date);
-                const day = d.getDay(); // Sunday = 0
-                const diff = d.getDate() - day + (day === 0 ? -6 : 1); // Adjust if Sunday
+                const day = d.getDay();
+                const diff = d.getDate() - day + (day === 0 ? -6 : 1);
                 return new Date(d.setDate(diff));
             },
 
@@ -168,7 +195,7 @@
                 for (let i = 0; i < 7; i++) {
                     const d = new Date(this.currentWeekStart);
                     d.setDate(d.getDate() + i);
-                    this.weekDays.push(this.formatDate(d)); // e.g., "2025-04-01"
+                    this.weekDays.push(this.formatDate(d));
                 }
             },
 
@@ -219,12 +246,34 @@
             },
 
             editEntry(entry) {
-                alert('Edit not implemented yet. Entry ID: ' + entry.id);
+                this.editingEntry = entry;
+                this.selectedProjectId = entry.id;
+                document.querySelector('[name="issue"]').value = entry.issue;
+                document.querySelector('[name="date"]').value = entry.date;
+                document.querySelector('[name="duration"]').value = entry.hours;
+                document.querySelector('[name="comment"]').value = entry.comment;
             },
 
             deleteEntry(id) {
-                alert("Delete functionality not implemented yet.");
-            },
+                if (!confirm("Are you sure you want to delete this entry?")) return;
+
+                fetch(`/timesheet-entries/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content'),
+                            'Accept': 'application/json',
+                        },
+                    })
+                    .then(response => {
+                        if (!response.ok) throw new Error("Failed to delete");
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success) this.loadEntries();
+                    })
+                    .catch(error => console.error("Error deleting entry:", error));
+            }
         };
     }
 </script>

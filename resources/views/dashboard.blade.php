@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-6 max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="py-6 max-w-full mx-auto sm:px-6 lg:px-8">
         <div x-data="{ tab: 'home' }">
             <div class="flex space-x-4 border-b pb-2">
                 <button @click="tab = 'home'" class="px-4 py-2 text-sm font-medium"

@@ -36,6 +36,10 @@ Route::middleware('auth')->group(function () {
         return response()->json(Project::all());
     });
     Route::get('/timesheet-entries', [TimeSheetController::class, 'getEntries']);
+
+    Route::delete('/timesheet-entries/{id}', [TimesheetController::class, 'destroy'])->name('timesheet.destroy');
+
+    Route::put('/timesheet-entries/{id}', [TimesheetController::class, 'update'])->name('timesheet.update');
 });
 
 

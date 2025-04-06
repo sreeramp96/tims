@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'sreeram@gmail.com',
         ]);
         $this->call(ProjectSeeder::class);
+        $this->call([TimeSheetEntrySeeder::class,]);
     }
 }
