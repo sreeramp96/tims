@@ -62,6 +62,10 @@
                 <button type="submit" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
                     Save Time Entry
                 </button>
+                {{-- <button @click="copyPreviousDay"
+                    class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">
+                    Copy Previous Day's Entries
+                </button> --}}
             </div>
         </form>
 
@@ -159,6 +163,7 @@
             errors: {},
             editingEntry: null,
             selectedProjectId: '',
+            dailyTotals: {},
 
             init() {
                 this.resetToCurrentWeek();
@@ -229,6 +234,8 @@
                     for (let i = 0; i < 7; i++) {
                         let date = this.formatDate(this.addDays(this.currentWeekStart, i));
                         this.entries[date] = data.entries[date] ?? [];
+                        this.dailyTotals[date] = (this.entries[date] ?? []).reduce((sum, e) => sum + parseFloat(e
+                            .hours), 0);
                     }
                 } catch (error) {
                     console.error("Error fetching entries:", error);
@@ -273,7 +280,34 @@
                         if (data.success) this.loadEntries();
                     })
                     .catch(error => console.error("Error deleting entry:", error));
-            }
+            },
+
+            // copyPreviousDay() {
+            //     if (!confirm("Are you sure you want to copy yesterday's entries to today?")) return;
+
+            //     fetch('/timesheet-entries/copy-previous-day', {
+            //             method: 'POST',
+            //             headers: {
+            //                 'Content-Type': 'application/json',
+            //                 'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content'),
+            //             },
+            //             body: JSON.stringify({}),
+            //         })
+            //         .then(res => res.json())
+            //         .then(data => {
+            //             if (data.success) {
+            //                 this.loadEntries();
+            //                 this.toast("Entries copied successfully!", "success");
+            //             } else {
+            //                 this.toast(data.message || "Something went wrong.", "error");
+            //             }
+            //         })
+            //         .catch(err => {
+            //             this.toast("Request failed. Please try again.", "error");
+            //             console.error(err);
+            //         });
+            // },
+
         };
     }
 </script>

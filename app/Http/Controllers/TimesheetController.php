@@ -123,4 +123,33 @@ class TimesheetController extends Controller
         }
         return back()->with('success', 'Time entry deleted successfully.')->with('tab', 'timesheet');
     }
+
+    // public function copyPreviousDay(Request $request)
+    // {
+    //     $user = auth()->user();
+
+    //     $today = now()->startOfDay();
+    //     $yesterday = now()->subDay()->startOfDay();
+
+    //     $yesterdayEntries = TimesheetEntry::where('user_id', $user->id)
+    //         ->whereDate('date', $yesterday)
+    //         ->get();
+
+    //     if ($yesterdayEntries->isEmpty()) {
+    //         return response()->json(['success' => false, 'message' => 'No entries found for yesterday.']);
+    //     }
+
+    //     foreach ($yesterdayEntries as $entry) {
+    //         TimesheetEntry::create([
+    //             'user_id' => $entry->user_id,
+    //             'date' => $today,
+    //             'project_id' => $entry->project_id,
+    //             'issue' => $entry->issue,
+    //             'comment' => $entry->comment,
+    //             'duration' => $entry->duration,
+    //         ]);
+    //     }
+
+    //     return response()->json(['success' => true]);
+    // }
 }

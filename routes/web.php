@@ -40,6 +40,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/timesheet-entries/{id}', [TimesheetController::class, 'destroy'])->name('timesheet.destroy');
 
     Route::put('/timesheet-entries/{id}', [TimesheetController::class, 'update'])->name('timesheet.update');
+
+    Route::post('/timesheet-entries/copy-previous-day', [TimesheetController::class, 'copyPreviousDay']);
 });
 
 

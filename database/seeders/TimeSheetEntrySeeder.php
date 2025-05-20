@@ -22,7 +22,7 @@ class TimeSheetEntrySeeder extends Seeder
                 'comment' => $faker->text,
                 'duration' => $faker->randomFloat(1, 0.5, 8),
                 'date' => $faker->dateTimeBetween('-1 week', '+1 week')->format('Y-m-d'),
-                'user_id' => $faker->randomElement([1, 3]),
+                'user_id' => $faker->randomElement([1, 2]),
             ]);
         });
     }
