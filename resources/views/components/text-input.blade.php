@@ -1,4 +1,4 @@
-@props(['disabled' => false, 'label' => 'Issue'])
+@props(['disabled' => false, 'label' => '', 'id' => null])
 <div>
     <label class="block text-gray-700">{{ $label }}</label>
     <input @disabled($disabled)
