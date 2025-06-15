@@ -9,8 +9,10 @@
                 <div class="bg-red-100 text-red-800 p-3 rounded mb-4">{{ session('error') }}</div>
             @endif
         </div>
-        <form :action="editingEntry ? `/timesheet-entries/${editingEntry.id}` : '{{ route('save-timesheet') }}'"
-            method="POST" x-ref="entryForm">
+        {{-- <form :action="editingEntry ? `/timesheet-entries/${editingEntry.id}` : '{{ route('save-timesheet') }}'"
+            method="POST" x-ref="entryForm"> --}}
+        <form
+            action="{{ isset($editingEntry) ? url('/timesheet-entries/' . $editingEntry->id) : route('save-timesheet') }}">
             @csrf
             <template x-if="editingEntry">
                 <input type="hidden" name="_method" value="PUT">
@@ -105,7 +107,7 @@
                                     <tr class="hover:bg-gray-50">
                                         <template x-if="index === 0">
                                             <td class="border px-4 py-2 align-top whitespace-nowrap w-32 text-sm font-medium"
-                                                :rowspan="entries[day].length" x-text="day">
+                                                :x-rowspan="entries[day].length" x-text="day">
                                             </td>
                                         </template>
                                         <td class="border px-4 py-2" x-text="entry.project"></td>
